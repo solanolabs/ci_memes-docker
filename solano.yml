@@ -1,0 +1,18 @@
+system:
+  docker: true
+
+environment:
+  'DOCKER_APP': 'ci_memes'
+  'DEPLOY_TARGET': 'docker'
+  # For sensitive values, use `solano config:add repo <key> <value>` from the cli
+  # See: http://docs.solanolabs.com/Setup/setting-environment-variables/#via-config-variables
+  # 'DOCKER_USER': '<set-with-cli>'
+  # 'DOCKER_EMAIL': '<set-with-cli>'
+  # 'DOCKER_PASSWORD': '<set-with-cli>'
+
+hooks:
+  pre_setup: 'scripts/solano-pre_setup.sh'
+  post_build: 'scripts/solano-deploy.sh'
+
+tests:
+  - sudo docker run $DOCKER_USER/$DOCKER_APP:$TDDIUM_CURRENT_COMMIT bash -c /run_tests.sh

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-if [ -z "$DOCKER_EMAIL" || -z "$DOCKER_USER" || -z "$DOCKER_PASSWORD" ]; then
-  echo "ERROR: The \$DOCKER_EMAIL, \$DOCKER_USER, and \$DOCKER_PASSWORD values are not all set!"
-  echo "Please use `solano config:add repo <key> <value>` to set these values"
-  echo "See: http://docs.solanolabs.com/Setup/setting-environment-variables/#via-config-variables"
+if [[ -z "$DOCKER_EMAIL" || -z "$DOCKER_USER" || -z "$DOCKER_PASSWORD" ]]; then
+  echo 'ERROR: The $DOCKER_EMAIL, $DOCKER_USER, and $DOCKER_PASSWORD values are not all set!'
+  echo 'Please use `solano config:add repo <key> <value>` to set these values'
+  echo 'See: http://docs.solanolabs.com/Setup/setting-environment-variables/#via-config-variables'
   exit 1
 fi
 

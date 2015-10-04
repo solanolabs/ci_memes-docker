@@ -41,7 +41,11 @@ if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
   fi
 
   # Ensure aws-cli is installed and configured
-  hash aws 2>/dev/null || { pip install --install-option="--prefix=$HOME" awscli; }
+  if [ ! -f $HOME/bin/aws ]; then
+    curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+    unzip awscli-bundle.zip
+    ./awscli-bundle/install -b $HOME/bin/aws
+  fi
   if [ -d $HOME/lib/python2.7/site-packages ]; then
     export PYTHONPATH=$HOME/lib/python2.7/site-packages
   fi

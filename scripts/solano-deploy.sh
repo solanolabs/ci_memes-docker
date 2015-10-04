@@ -55,7 +55,7 @@ if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
   aws ecs register-task-definition --family $AWS_ECS_TASK_DEFINITION --cli-input-json file://ci_memes-${TDDIUM_SESSION_ID}.json
 
   # Get latest revision number
-  REV=`aws ecs describe-task-deinition --task-definition $AWS_ECS_TASK_DEFINITION | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
+  REV=`aws ecs describe-task-definition --task-definition $AWS_ECS_TASK_DEFINITION | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
 
   # Update
   aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition ${AWS_ECS_TASK_DEFINITION}:${REV}

@@ -15,6 +15,7 @@ environment:
   # 'DOCKER_PASSWORD': '<set-with-cli>'
   # 'AWS_ACCESS_KEY_ID': '<set-with-cli>'
   # 'AWS_SECRET_ACCESS_KEY': '<set-with-cli>'
+  # 'AWS_DEFAULT_REGION': '<set-with-cli>'
 
 hooks:
   pre_setup: 'scripts/solano-pre_setup.sh'

@@ -1,0 +1,28 @@
+{
+  "family": "ci_memes",
+  "containerDefinitions": [
+    {
+      "name": "ci_memes",
+      "image": "isaacchapman/ci_memes:%TDDIUM_SESSION_ID%",
+      "cpu": 100,
+      "memory": 256,
+      "entryPoint": [
+        "/run_services.sh"
+      ],
+      "environment": [],
+      "command": [],
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80,
+          "protocol": "tcp"
+        }
+      ],
+      "volumesFrom": [],
+      "links": [],
+      "mountPoints": [],
+      "essential": true
+    }
+  ],
+  "volumes": []
+}

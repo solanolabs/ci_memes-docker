@@ -3,16 +3,23 @@ system:
 
 environment:
   'DOCKER_APP': 'ci_memes'
-  'DEPLOY_TARGET': 'docker'
+  'DEPLOY_DOCKER': 'true'
+  'DEPLOY_AWS_ECS': 'true'
+  'AWS_ECS_CLUSTER': 'default'
+  'AWS_ECS_SERVICE': 'ci_memes-service'
+  'AWS_ECS_TASK_DEFINITION': 'ci_memes'
   # For sensitive values, use `solano config:add repo <key> <value>` from the cli
   # See: http://docs.solanolabs.com/Setup/setting-environment-variables/#via-config-variables
   # 'DOCKER_USER': '<set-with-cli>'
   # 'DOCKER_EMAIL': '<set-with-cli>'
   # 'DOCKER_PASSWORD': '<set-with-cli>'
+  # 'AWS_ACCESS_KEY_ID': '<set-with-cli>'
+  # 'AWS_SECRET_ACCESS_KEY': '<set-with-cli>'
 
 hooks:
   pre_setup: 'scripts/solano-pre_setup.sh'
   post_build: 'scripts/solano-deploy.sh'
 
 tests:
-  - sudo docker run $DOCKER_USER/$DOCKER_APP:$TDDIUM_CURRENT_COMMIT bash -c /run_tests.sh
+  - sudo docker run $DOCKER_USER/$DOCKER_APP:$TDDIUM_SESSION_ID bash -c /run_tests.sh
+

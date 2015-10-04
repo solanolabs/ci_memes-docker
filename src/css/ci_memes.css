@@ -36,7 +36,7 @@ section#content {
   text-align: center;
   display: none;
   position: relative;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
 }
 

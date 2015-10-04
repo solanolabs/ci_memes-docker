@@ -94,7 +94,7 @@ INSERT INTO `images` VALUES ('img/memes/business_cat_unit_test.jpg','');
 INSERT INTO `images` VALUES ('img/memes/desk_flip.gif','<div><image src=\"__IMAGE__\" /></div><h1>Build Engineer<br />without Solano CI</h1>');
 INSERT INTO `images` VALUES ('img/memes/dos_equis_test_in_production.jpg','');
 INSERT INTO `images` VALUES ('img/memes/jenkins_is_hard_sad_pikachu.jpg','');
-INSERT INTO `images` VALUES ('img/memes/laser_pointer_cat.gif','<div style=\"width:400px;display:inline-block;\"><div style=\"width:243px;float:left;\"><img src=\"__IMAGE__\" /></div><div style=\"float:left;text-align:left;\"><h1 style=\"padding-left:15px;\">Solano CI<br />No more<br />chasing<br />red builds!</h1></div></div>');
+INSERT INTO `images` VALUES ('img/memes/laser_pointer_cat.gif','<div style=\"width:486px;display:inline-block;\"><div style=\"width:243px;float:left;\"><img src=\"__IMAGE__\" /></div><div style=\"float:left;text-align:left;\"><h1 style=\"padding-left:15px;\">Solano CI<br />No more<br />chasing<br />red builds!</h1></div></div>');
 INSERT INTO `images` VALUES ('img/memes/never_too_much_automation.gif','<div><image src=\"__IMAGE__\" /></div><h1>Never too much automation</h1>');
 INSERT INTO `images` VALUES ('img/memes/picard_enjoys_passing_tests.jpg','');
 INSERT INTO `images` VALUES ('img/memes/red_shirt_explosion.gif','<div><image src=\"__IMAGE__\" style=\"height: 396px; width: 500px;\" /></div><h1>Solano CI:<br />no more red builds</h1>');

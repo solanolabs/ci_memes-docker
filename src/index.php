@@ -1,63 +1,54 @@
 <html>
   <head>
-    <title>Solano CI Memes and Quotes</title>
+    <title>Solano CI Memes</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script>
-	solano_refresh=window.setTimeout(function(){window.location.href=window.location.href},8000);
-    </script>
+    <script src="js/ci_memes.js"></script>
+    <link href="css/ci_memes.css" media="screen" rel="stylesheet" type="text/css" />
     <noscript>
       <meta http-equiv="refresh" content="8" />
     </noscript>
-    <style>
-      html { text-align: center; }
-    </style> 
   </head>
   <body>
-<?php
-$db_name = 'ci_memes';
-$db_user = 'ci_memes';
-$db_host = 'localhost';
-$db_pass = 'cicicicici_memememess';
+    <header>
+      <div class="wrapper">
+        <h1 id="logo">
+          <a href="https://www.solanolabs.com/">Solano Labs</a>
+        </h1>
+        <h2 id="title">Solano Labs CI Memes</h2>
+      </div>
+    </header>
+    <section id="content">
+      <?php 
+        // Load memes and quotes
+        require_once(dirname(__FILE__) . '/php/fetch_data.php');
 
-$mysqli = new mysqli($db_host, $db_user, $db_pass, $db_name);
-if (mysqli_connect_errno()) {
-  printf("Connect failed: %s\n", mysqli_connect_error());
-  exit();
-}
-$sql = "SELECT SQL_CALC_FOUND_ROWS image_url, html FROM images ORDER BY rand() LIMIT 1;";
-$sql .= "SELECT FOUND_ROWS();";
-if ($mysqli->multi_query($sql)) {
-  $results = $mysqli->store_result();
-  $record = $results->fetch_row();
-  $image = array('image_url' => $record[0], 'html' => $record[1]);
-  $results->free();
-  $mysqli->next_result();
-  $results = $mysqli->store_result();
-  $record = $results->fetch_row();
-  $image_count = $record[0];
-  $results->free();
-  $random_num = rand(1, $image_count + 2);
-  if ($random_num > $image_count) {
-    // Use quote instead
-    $sql = "SELECT quote FROM chuck_quotes ORDER BY rand() LIMIT 1";
-    $results = $mysqli->query($sql);
-    $record = $results->fetch_row();
-    echo ('<h1>' . $record[0] . '</h1>');
-  } else {
-    // Show image
-    if (empty($image['html'])) {
-      echo ('<img src="' . $image['image_url'] . '" />');
-    } else {
-      $html = str_replace('__IMAGE__', $image['image_url'], $image['html']);
-      echo ($html);
-    }
-  }
-}
-$mysqli->close();
-?>
-  <!--
-    An error will prevent this comment from being returned in the output: 
-    NO_ERROR
-  -->
+        // Write memes
+        for ($i = 0; $i < count($memes); $i++) {
+          echo ('<div class="meme_wrapper" id="meme_wrapper_' . $i . '">');
+          if (empty($memes[$i]->html)) {
+            echo ('<img src="' . $memes[$i]->image_url . '" />');
+          } else {
+            echo (str_replace('__IMAGE__', $memes[$i]->image_url, $memes[$i]->html));
+          }
+          echo ('</div>');
+        }
+
+        // Write quotes
+        for ($i = 0; $i < count($quotes); $i++) {
+          echo ('<div class="quote_wrapper" id="quote_wrapper_' . $i . '">');
+          echo ('<h2>' . $quotes[$i] . '</h2>');
+          echo ('</div>');
+        }
+
+        // Write JS vars
+        echo ('<script>var meme_id=0, quote_id=0, meme_chance=' . $meme_chance . ', showing="meme_wrapper_0", display_period=' . $display_period . ' </script>');
+
+
+      ?>
+    </section>
   </body>
+<!--
+  An error will prevent this comment from being returned in the output: 
+  NO_ERROR
+-->
 </html>

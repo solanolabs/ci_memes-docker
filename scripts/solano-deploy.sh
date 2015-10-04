@@ -10,17 +10,17 @@ if [[ "passed" != "$TDDIUM_BUILD_STATUS" ]]; then
   exit
 fi
 
-if [[ "master" != "$TDDIUM_CURRENT_BRANCH" ]]; then
-  echo "\$TDDIUM_CURRENT_BRANCH = $TDDIUM_CURRENT_BRANCH"
-  echo "Will only depoloy on master branch"
-  exit
-fi
+#if [[ "master" != "$TDDIUM_CURRENT_BRANCH" ]]; then
+#  echo "\$TDDIUM_CURRENT_BRANCH = $TDDIUM_CURRENT_BRANCH"
+#  echo "Will only depoloy on master branch"
+#  exit
+#fi
 
-if [[ "ci" != "$TDDIUM_MODE" ]]; then
-  echo "\$TDDIUM_MODE = $TDDIUM_MODE"
-  echo "Will on deploy on ci initiated builds."
-  exit
-fi
+#if [[ "ci" != "$TDDIUM_MODE" ]]; then
+#  echo "\$TDDIUM_MODE = $TDDIUM_MODE"
+#  echo "Will on deploy on ci initiated builds."
+#  exit
+#fi
 
 # Deploy to docker hub?
 if [ -z "$DEPLOY_DOCKER" ] && [[ "true" == "$DEPLOY_DOCKER" ]]; then

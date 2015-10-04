@@ -3,19 +3,21 @@
 # Exit on script errors
 set -o errexit -o pipefail
 
-# Should we deploy?
+# Only deploy if all tests have passed
 if [[ "passed" != "$TDDIUM_BUILD_STATUS" ]]; then
   echo "\$TDDIUM_BUILD_STATUS = $TDDIUM_BUILD_STATUS"
   echo "Will only deploy on passed builds"
   exit
 fi
 
+# Uncomment if only the master branch should trigger deploys
 #if [[ "master" != "$TDDIUM_CURRENT_BRANCH" ]]; then
 #  echo "\$TDDIUM_CURRENT_BRANCH = $TDDIUM_CURRENT_BRANCH"
 #  echo "Will only depoloy on master branch"
 #  exit
 #fi
 
+# Uncomment if cli-initiated Solano CI builds should not trigger deploys
 #if [[ "ci" != "$TDDIUM_MODE" ]]; then
 #  echo "\$TDDIUM_MODE = $TDDIUM_MODE"
 #  echo "Will on deploy on ci initiated builds."
@@ -34,8 +36,8 @@ sudo docker push $DOCKER_USER/$DOCKER_APP
 if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
 
   # Ensure required environment variables are set
-  if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
-    echo "AWS ECS deploy requires setting \$AWS_ACCESS_KEY_ID and \$AWS_SECRET_ACCESS_KEY."
+  if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$AWS_DEFAULT_REGION" ]; then
+    echo "AWS ECS deploy requires setting \$AWS_ACCESS_KEY_ID, \$AWS_SECRET_ACCESS_KEY, and \$AWS_DEFAULT_REGION"
     echo 'See: http://docs.solanolabs.com/Setup/setting-environment-variables/#via-config-variables'
     exit 1
   fi
@@ -50,11 +52,15 @@ if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
     export PYTHONPATH=$HOME/lib/python2.7/site-packages
   fi
 
-  # Create new task definition
-  sed -e "s;%TDDIUM_SESSION_ID%;$TDDIUM_SESSION_ID;g" ci_memes.json > ci_memes-${TDDIUM_SESSION_ID}.json
+  # Create new task definition from template file
+  sed -e "s;%TDDIUM_SESSION_ID%;$TDDIUM_SESSION_ID;g" ci_memes.json \
+    | sed -e "s;%AWS_ECS_TASK_DEFINITION%;$AWS_ECS_TASK_DEFINITION;g" \
+    | sed -e "s;%DOCKER_USER%;$DOCKER_USER;g" \
+    | sed -e "s;%DOCKER_APP%;$DOCKER_APP;g" \
+    > ci_memes-${TDDIUM_SESSION_ID}.json
   aws ecs register-task-definition --family $AWS_ECS_TASK_DEFINITION --cli-input-json file://ci_memes-${TDDIUM_SESSION_ID}.json
 
-  # Get latest revision number
+  # Get revision number of newly created definition
   REV=`aws ecs describe-task-definition --task-definition $AWS_ECS_TASK_DEFINITION | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
 
   # Update

@@ -1,9 +1,9 @@
 {
-  "family": "ci_memes",
+  "family": "%AWS_ECS_TASK_DEFINITION%",
   "containerDefinitions": [
     {
-      "name": "ci_memes",
-      "image": "isaacchapman/ci_memes:%TDDIUM_SESSION_ID%",
+      "name": "%AWS_ECS_TASK_DEFINITION%",
+      "image": "%DOCKER_USER%/%DOCKER_APP%:%TDDIUM_SESSION_ID%",
       "cpu": 100,
       "memory": 256,
       "entryPoint": [

@@ -14,7 +14,7 @@
         <h1 id="logo">
           <a href="https://www.solanolabs.com/">Solano Labs</a>
         </h1>
-        <h2 id="title">Solano Labs CI Memes</h2>
+        <h2 id="title">CI Memes and Quotes</h2>
       </div>
     </header>
     <section id="content">

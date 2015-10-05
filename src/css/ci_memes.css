@@ -1,0 +1,62 @@
+body {
+  margin: 10px 40px;
+  min-width: 600px;
+}
+
+header {
+  height: 65px;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  float: left;
+}
+
+header h1 a {
+  display: block;
+  text-indent: -9999px;
+  width: 216px;
+  height: 40px;
+  background: url('../img/solano-labs-logo.png');
+}
+header h2 {
+  float: right;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 18px;
+  color: #333;
+  padding-top: 15px;
+}
+
+section#content {
+  width: 100%;
+  height: 80%;
+}
+
+.meme_wrapper {
+  text-align: center;
+  display: none;
+  position: relative;
+  top: 40%;
+  transform: translateY(-50%);
+}
+
+#meme_wrapper_0 {
+  display: block;
+}
+
+.meme_wrapper h1 {
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #333;
+  font-size: 32pt;
+}
+
+.quote_wrapper {
+  text-align: center;
+  font-family: 'Source Sans Pro', sans-serif;
+  color: #333;
+  display: none;
+}
+.quote_wrapper h2 {
+  font-size: 40pt;
+}
+

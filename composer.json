@@ -1,0 +1,8 @@
+{
+  "name": "solanolabs/ci_memes-docker",
+  "description": "Example of running parallel phpunit tests against a Docker container",
+  "require-dev":{
+    "solano/solano-phpunit": "*",
+    "guzzlehttp/guzzle": "~6.0"
+  }
+}

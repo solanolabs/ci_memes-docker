@@ -17,10 +17,28 @@ environment:
   # 'AWS_SECRET_ACCESS_KEY': '<set-with-cli>'
   # 'AWS_DEFAULT_REGION': '<set-with-cli>'
 
+timeout_hook: 900
+
 hooks:
-  pre_setup: 'scripts/solano-pre_setup.sh'
-  post_build: 'scripts/solano-deploy.sh'
+  pre_setup: |
+    set -e # #xit on error
+    ./scripts/solano-docker_build.sh
+    # Create test database SQL and install dependencies
+    grep -v ^"CREATE DATABASE " create-db.sql | grep -v ^"USE " > create-test-db.sql
+    composer install
+  worker_setup: mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD $TDDIUM_DB_NAME < create-test-db.sql
+  post_build: ./scripts/solano-deploy.sh 
+
+php:
+  php_version: "5.6"
+
+mysql:
+  adapter: 'mysql2'
 
 tests:
-  - sudo docker run $DOCKER_USER/$DOCKER_APP:$TDDIUM_SESSION_ID bash -c /run_tests.sh
-
+  - type: phpunit
+    mode: parallel
+    command: ./vendor/bin/solano-phpunit
+    config: phpunit.xml
+    files:
+      - tests/**_test.php

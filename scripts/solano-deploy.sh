@@ -10,14 +10,14 @@ if [[ "passed" != "$TDDIUM_BUILD_STATUS" ]]; then
   exit
 fi
 
-# Uncomment if only the master branch should trigger deploys
-#if [[ "master" != "$TDDIUM_CURRENT_BRANCH" ]]; then
-#  echo "\$TDDIUM_CURRENT_BRANCH = $TDDIUM_CURRENT_BRANCH"
-#  echo "Will only depoloy on master branch"
-#  exit
-#fi
+# Only the master branch should trigger deploys
+if [[ "master" != "$TDDIUM_CURRENT_BRANCH" ]]; then
+  echo "\$TDDIUM_CURRENT_BRANCH = $TDDIUM_CURRENT_BRANCH"
+  echo "Will only depoloy on master branch"
+  exit
+fi
 
-# Uncomment if cli-initiated Solano CI builds should not trigger deploys
+# Uncomment if cli-initiated Solano builds should not trigger deploys
 #if [[ "ci" != "$TDDIUM_MODE" ]]; then
 #  echo "\$TDDIUM_MODE = $TDDIUM_MODE"
 #  echo "Will on deploy on ci initiated builds."

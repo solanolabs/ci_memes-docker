@@ -22,7 +22,7 @@ timeout_hook: 900
 hooks:
   pre_setup: |
     set -e # #xit on error
-    ./scripts/docker_build.sh
+    ./scripts/solano-docker_build.sh
     # Create test database SQL and install dependencies
     grep -v ^"CREATE DATABASE " create-db.sql | grep -v ^"USE " > create-test-db.sql
     composer install

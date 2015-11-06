@@ -11,7 +11,7 @@ if (mysqli_connect_errno()) {
 
 // Fetch memes
 $memes = array();
-$sql = "SELECT image_url, html FROM images ORDER BY RAND();";
+$sql = "SELECT image_url, html FROM images;";
 $result = $mysqli->query($sql) or die($mysqli->error);
 while ($meme = $result->fetch_object()) {
   $memes[] = $meme;
@@ -20,7 +20,7 @@ $result->close();
 
 // Fetch quotes
 $quotes = array();
-$sql = "SELECT quote FROM chuck_quotes ORDER BY RAND();";
+$sql = "SELECT quote FROM chuck_quotes;";
 $result = $mysqli->query($sql) or die($mysqli->error);
 while ($record = $result->fetch_row()) {
   $quotes[] = $record[0];

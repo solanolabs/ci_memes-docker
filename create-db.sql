@@ -46,7 +46,7 @@ INSERT INTO `chuck_quotes` VALUES ('When Chuck Norris throws exceptions, it\'s a
 INSERT INTO `chuck_quotes` VALUES ('All arrays Chuck Norris declares are of infinite size, because Chuck Norris knows no bounds.');
 INSERT INTO `chuck_quotes` VALUES ('Chuck Norris doesn\'t have disk latency because the hard drive knows to hurry the hell up.');
 INSERT INTO `chuck_quotes` VALUES ('Chuck Norris writes code that optimizes itself.');
-INSERT INTO `chuck_quotes` VALUES ('Chuck Norris can’t test for equality because he has no equal.');
+INSERT INTO `chuck_quotes` VALUES ('Chuck Norris can\'t test for equality because he has no equal.');
 INSERT INTO `chuck_quotes` VALUES ('Chuck Norris doesn\'t need garbage collection because he doesn\'t call .Dispose(), he calls .DropKick().');
 INSERT INTO `chuck_quotes` VALUES ('Chuck Norris\'s first program was kill -9.');
 INSERT INTO `chuck_quotes` VALUES ('Chuck Norris burst the dot com bubble.');
@@ -56,7 +56,7 @@ INSERT INTO `chuck_quotes` VALUES ('Chuck Norris can write infinite recursion fu
 INSERT INTO `chuck_quotes` VALUES ('Chuck Norris can solve the Towers of Hanoi in one move.');
 INSERT INTO `chuck_quotes` VALUES ('The only pattern Chuck Norris knows is God Object.');
 INSERT INTO `chuck_quotes` VALUES ('Chuck Norris finished World of Warcraft.');
-INSERT INTO `chuck_quotes` VALUES ('Project managers never ask Chuck Norris for estimations…ever.');
+INSERT INTO `chuck_quotes` VALUES ('Project managers never ask Chuck Norris for estimations...ever.');
 INSERT INTO `chuck_quotes` VALUES ('Chuck Norris doesn\'t use web standards as the web will conform to him.');
 INSERT INTO `chuck_quotes` VALUES ('\'It works on my machine\' always holds true for Chuck Norris.');
 INSERT INTO `chuck_quotes` VALUES ('Whiteboards are white because Chuck Norris scared them that way.');

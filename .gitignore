@@ -1,2 +1,5 @@
 .solano*
 .DS_Store
+vendor/
+container-*.ip
+container-*.cid

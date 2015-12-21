@@ -10,7 +10,6 @@ if [[ -z "$DOCKER_EMAIL" || -z "$DOCKER_USER" || -z "$DOCKER_PASSWORD" ]]; then
   exit 1
 fi
 
-sudo docker login -e=$DOCKER_EMAIL -u=$DOCKER_USER -p=$DOCKER_PASSWORD # Not necessary for public docker repostiories 
+sudo docker login --email=$DOCKER_EMAIL --username=$DOCKER_USER --password=$DOCKER_PASSWORD # Not necessary for public docker repostiories 
 sudo docker pull ubuntu:14.04
 sudo docker build -t $DOCKER_USER/$DOCKER_APP:$TDDIUM_SESSION_ID .
-

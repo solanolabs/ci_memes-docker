@@ -29,7 +29,7 @@ if [ -z "$DEPLOY_DOCKER" ] && [[ "true" == "$DEPLOY_DOCKER" ]]; then
   echo "Will only deploy if \$DEPLOY_DOCKER is set."
   exit
 fi
-sudo docker login -e=$DOCKER_EMAIL -u=$DOCKER_USER -p=$DOCKER_PASSWORD
+sudo docker login --email=$DOCKER_EMAIL --username=$DOCKER_USER --password=$DOCKER_PASSWORD
 sudo docker push $DOCKER_USER/$DOCKER_APP
 
 # Deploy to AWS EC2 Container Service?

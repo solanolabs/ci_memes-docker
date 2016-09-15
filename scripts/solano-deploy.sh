@@ -24,16 +24,8 @@ fi
 #  exit
 #fi
 
-# Deploy to docker hub?
-if [ -z "$DEPLOY_DOCKER" ] && [[ "true" == "$DEPLOY_DOCKER" ]]; then
-  echo "Will only deploy if \$DEPLOY_DOCKER is set."
-  exit
-fi
-sudo docker login --email=$DOCKER_EMAIL --username=$DOCKER_USER --password=$DOCKER_PASSWORD
-sudo docker push $DOCKER_USER/$DOCKER_APP
-
 # Deploy to AWS EC2 Container Service?
-if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
+if [ -n "$DEPLOY_GCE" ] && [[ "true" == "$DEPLOY_GCE" ]]; then
 
   # Ensure required environment variables are set
   if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ] || [ -z "$AWS_DEFAULT_REGION" ]; then
@@ -51,19 +43,4 @@ if [ -n "$DEPLOY_AWS_ECS" ] && [[ "true" == "$DEPLOY_AWS_ECS" ]]; then
   if [ -d $HOME/lib/python2.7/site-packages ]; then
     export PYTHONPATH=$HOME/lib/python2.7/site-packages
   fi
-
-  # Create new task definition from template file
-  sed -e "s;%TDDIUM_SESSION_ID%;$TDDIUM_SESSION_ID;g" ci_memes.json \
-    | sed -e "s;%AWS_ECS_TASK_DEFINITION%;$AWS_ECS_TASK_DEFINITION;g" \
-    | sed -e "s;%DOCKER_USER%;$DOCKER_USER;g" \
-    | sed -e "s;%DOCKER_APP%;$DOCKER_APP;g" \
-    > ci_memes-${TDDIUM_SESSION_ID}.json
-  aws ecs register-task-definition --family $AWS_ECS_TASK_DEFINITION --cli-input-json file://ci_memes-${TDDIUM_SESSION_ID}.json
-
-  # Get revision number of newly created definition
-  REV=`aws ecs describe-task-definition --task-definition $AWS_ECS_TASK_DEFINITION | egrep "revision" | tr "/" " " | awk '{print $2}' | sed 's/"$//'`
-
-  # Update
-  aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition ${AWS_ECS_TASK_DEFINITION}:${REV}
-  
 fi

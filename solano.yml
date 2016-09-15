@@ -2,43 +2,22 @@ system:
   docker: true
 
 environment:
-  'DOCKER_APP': 'ci_memes'
-  'DEPLOY_DOCKER': 'true'
-  'DEPLOY_AWS_ECS': 'true'
-  'AWS_ECS_CLUSTER': 'default'
-  'AWS_ECS_SERVICE': 'ci_memes-service'
-  'AWS_ECS_TASK_DEFINITION': 'ci_memes'
+  'DEPLOY_GCR': 'true'
+  'GCR_DOCKER_APP': 'ci_memes'
+  'GCR_DOCKER_USER': 'solanolabs'
+  'GCR_DOMAIN': 'us.gcr.io'
+  'GCR_DOCKER_TAG': 'latest'
   # For sensitive values, use `solano config:add repo <key> <value>` from the cli
   # See: http://docs.solanolabs.com/Setup/setting-environment-variables/#via-config-variables
-  # 'DOCKER_USER': '<set-with-cli>'
-  # 'DOCKER_EMAIL': '<set-with-cli>'
-  # 'DOCKER_PASSWORD': '<set-with-cli>'
-  # 'AWS_ACCESS_KEY_ID': '<set-with-cli>'
-  # 'AWS_SECRET_ACCESS_KEY': '<set-with-cli>'
-  # 'AWS_DEFAULT_REGION': '<set-with-cli>'
+  # 'GCR_PROJECT_ID': 'ci-memes'
+  # 'GCR_SERVICE_ACCOUNT_EMAIL': 'dummy-account@appspot.gserviceaccount.com'
+  # 'GCR_SERVICE_ACCOUNT_JSON': '{"type": "service_account","project_id": "xxx","private_key_id": "xxx","private_key": "xxx","client_email": "xxx","client_id": "xxx","auth_uri": "xxx","token_uri": "xxx","auth_provider_x509_cert_url": "xxx","client_x509_cert_url": "xxx"}'
 
 timeout_hook: 900
 
 hooks:
-  pre_setup: |
-    set -e # #xit on error
-    ./scripts/solano-docker_build.sh
-    # Create test database SQL and install dependencies
-    grep -v ^"CREATE DATABASE " create-db.sql | grep -v ^"USE " > create-test-db.sql
-    composer install
-  worker_setup: mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD $TDDIUM_DB_NAME < create-test-db.sql
-  post_build: ./scripts/solano-deploy.sh 
-
-php:
-  php_version: "5.6"
-
-mysql:
-  adapter: 'mysql2'
+  pre_setup: ./scripts/solano-gcr_build.sh
+  post_build: ./scripts/solano-gcr_deploy.sh 
 
 tests:
-  - type: phpunit
-    mode: parallel
-    command: ./vendor/bin/solano-phpunit
-    config: phpunit.xml
-    files:
-      - tests/**_test.php
+  - sudo docker run $GCR_DOCKER_USER/$GCR_DOCKER_APP:latest bash -c /run_tests.sh

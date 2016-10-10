@@ -2,7 +2,6 @@ system:
   docker: true
 environment:
   'DOCKER_APP': 'ci_memes'
-  'DEPLOY_DOCKER': 'true'
   'DEPLOY_AWS_ECS': 'true'
   'AWS_ECS_CLUSTER': 'default'
   'AWS_ECS_SERVICE': 'ci_memes-service'

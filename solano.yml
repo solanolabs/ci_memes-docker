@@ -42,3 +42,24 @@ tests:
     config: phpunit.xml
     files:
       - tests/**_test.php
+profiles:
+  read:  
+    tests:
+      - test `grep -c '[c]rack tar' ~/setup.log` -gt 0
+      - test `grep -c '[I]nstalling awesome_print 1.6.0' ~/setup.log` -eq 0
+      - type: phpunit
+        mode: parallel
+        command: ./vendor/bin/solano-phpunit
+        config: phpunit.xml
+        files:
+          - tests/**_test.php
+  write:  
+    tests:
+      - test `grep -c '[I]nstalling awesome_print 1.6.0' ~/setup.log` -gt 0  
+      - type: phpunit
+        mode: parallel
+        command: ./vendor/bin/solano-phpunit
+        config: phpunit.xml
+        files:
+          - tests/**_test.php
+      

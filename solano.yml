@@ -21,7 +21,7 @@ hooks:
   pre_setup: |
     set -e # #xit on error
     ./scripts/solano-docker_build.sh
-  post_setup: |
+  worker_setup: |
     set -e # #xit on error
     ./scripts/solano-docker_start.sh
     # Create test database SQL

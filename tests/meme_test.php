@@ -8,8 +8,11 @@ class Test_Meme extends PHPUnit_Framework_TestCase
   {
     global $container_ip_addr;
     $url = 'http://' . $container_ip_addr . '/memes.php?meme_id=' . $meme_id;
+    echo $url;
     $client = new GuzzleHttp\Client();
     $response = $client->request('GET', $url);
+    echo $response->getBody();
+    echo $response->getHeaders();
     $this->assertEquals('200', $response->getStatusCode());
     $body = (string)$response->getBody();
     $this->assertGreaterThan(0, strpos($body, $image_url)); // Ensure the image_url is present

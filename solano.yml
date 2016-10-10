@@ -1,6 +1,7 @@
 system:
   docker: true
-
+PHP:
+  version: '5.6'
 environment:
   'DOCKER_APP': 'ci_memes'
   'DEPLOY_DOCKER': 'true'

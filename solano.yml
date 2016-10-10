@@ -37,7 +37,14 @@ php:
 
 mysql:
   adapter: 'mysql2'
-  
+tests:
+  - type: phpunit
+    mode: parallel
+    command: ./vendor/bin/solano-phpunit
+    config: phpunit.xml
+    files:
+      - tests/**_test.php
+      
 profiles:
   read:  
     tests:

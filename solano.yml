@@ -26,10 +26,11 @@ hooks:
     # Create test database SQL and install dependencies
     grep -v ^"CREATE DATABASE " create-db.sql | grep -v ^"USE " > create-test-db.sql
     composer install
+    setenv
   post_setup: |
     ./scripts/solano-docker_start.sh
     mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD $TDDIUM_DB_NAME < create-test-db.sql
-
+    setenv
 php:
   php_version: "5.6"
 

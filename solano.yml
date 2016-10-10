@@ -27,6 +27,7 @@ hooks:
     # Create test database SQL
     grep -v ^"CREATE DATABASE " create-db.sql | grep -v ^"USE " > create-test-db.sql
     composer install
+    printenv
     mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD $TDDIUM_DB_NAME < create-test-db.sql
 php:
   php_version: "5.6"
@@ -44,6 +45,7 @@ tests:
 profiles:
   read:  
     tests:
+      - printenv
       - ls -al /home/u4/
       - test `grep -c '[c]rack tar' ~/setup.log` -gt 0  
       - type: phpunit

@@ -22,12 +22,13 @@ hooks:
   pre_setup: |
     set -e # #xit on error
     ./scripts/solano-docker_build.sh
-    # Create test database SQL and install dependencies
-    grep -v ^"CREATE DATABASE " create-db.sql | grep -v ^"USE " > create-test-db.sql
     composer install
     printenv
-  worker_setup: mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD $TDDIUM_DB_NAME < create-test-db.sql
-  post_setup:   printenv && ./scripts/solano-docker_start.sh
+  post_setup: |
+    ./scripts/solano-docker_start.sh
+    # Create test database SQL
+    grep -v ^"CREATE DATABASE " create-db.sql | grep -v ^"USE " > create-test-db.sql
+    mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD $TDDIUM_DB_NAME < create-test-db.sql
 php:
   php_version: "5.6"
 

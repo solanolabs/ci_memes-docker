@@ -30,7 +30,7 @@ hooks:
     printenv
     cat create-test-db.sql
     mysql -u$TDDIUM_DB_USER -p$TDDIUM_DB_PASSWORD $TDDIUM_DB_NAME < create-test-db.sql
-    find $TDDIUM_REPO_ROOT/.
+
 php:
   php_version: "5.6"
 
@@ -47,7 +47,7 @@ tests:
 profiles:
   read:  
     tests:
-      - test `grep -c '[S]tatus: Image is up to date for ubuntu:14.04' ~/setup.log` -gt 0  
+      - test `grep -c '[S]tatus\: Image is up to date for ubuntu\:14\.04' ~/setup.log` -gt 0  
       - type: phpunit
         mode: parallel
         command: ./vendor/bin/solano-phpunit

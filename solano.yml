@@ -47,6 +47,7 @@ tests:
 profiles:
   read:  
     tests:
+      - find ~/.
       - test `grep -c '[c]rack tar' ~/setup.log` -eq 0
       - type: phpunit
         mode: parallel

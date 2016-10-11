@@ -38,7 +38,6 @@ php:
 mysql:
   adapter: 'mysql2'
 tests:
-  - cat ~/pre_setup.log
   - type: phpunit
     mode: parallel
     command: ./vendor/bin/solano-phpunit
@@ -49,7 +48,7 @@ tests:
 profiles:
   read:  
     tests:
-      - test `grep -c '[c]rack tar' ~/setup.log` -eq 0
+      - test `grep -c '[I]mage is up to date for' ~/pre_setup.log` -gt 0
       - type: phpunit
         mode: parallel
         command: ./vendor/bin/solano-phpunit
@@ -58,7 +57,7 @@ profiles:
           - tests/**_test.php
   write:  
     tests:
-      - test `grep -c '[c]rack tar' ~/setup.log` -eq 0
+      - test `grep -c '[I]mage is up to date for' ~/pre_setup.log` -eq 0
       - type: phpunit
         mode: parallel
         command: ./vendor/bin/solano-phpunit

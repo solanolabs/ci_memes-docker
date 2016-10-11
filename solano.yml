@@ -46,7 +46,7 @@ tests:
 profiles:
   read:  
     tests:
-      - find ~/.
+      - find /home/u4/.
       - test `grep -c '[S]tatus: Image is up to date for ubuntu:14.04' ~/setup.log` -gt 0  
       - type: phpunit
         mode: parallel

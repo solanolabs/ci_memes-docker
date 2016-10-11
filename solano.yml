@@ -46,8 +46,8 @@ tests:
 profiles:
   read:  
     tests:
-      - ls ~/log
-      - test `grep -c '[c]rack tar' ~/setup.log` -gt 0  
+      - find ~/.
+      - test `grep -c '[S]tatus: Image is up to date for ubuntu:14.04' ~/setup.log` -gt 0  
       - type: phpunit
         mode: parallel
         command: ./vendor/bin/solano-phpunit

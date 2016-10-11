@@ -23,7 +23,7 @@ hooks:
     ./scripts/solano-docker_build.sh
     # Create test database SQL
     grep -v ^"CREATE DATABASE " create-db.sql | grep -v ^"USE " > create-test-db.sql
-    find ~/.
+    cp ~/results/$TDDIUM_SESSION_ID/session/hook-pre_setup0.log ~/pre_setup.log
   worker_setup: |
     set -e # #xit on error
     ./scripts/solano-docker_start.sh
@@ -38,6 +38,7 @@ php:
 mysql:
   adapter: 'mysql2'
 tests:
+  - cat ~/pre_setup.log
   - type: phpunit
     mode: parallel
     command: ./vendor/bin/solano-phpunit

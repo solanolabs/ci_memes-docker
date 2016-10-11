@@ -23,6 +23,7 @@ hooks:
     ./scripts/solano-docker_build.sh
     # Create test database SQL
     grep -v ^"CREATE DATABASE " create-db.sql | grep -v ^"USE " > create-test-db.sql
+    find ~/.
   worker_setup: |
     set -e # #xit on error
     ./scripts/solano-docker_start.sh
@@ -47,7 +48,6 @@ tests:
 profiles:
   read:  
     tests:
-      - find ~/.
       - test `grep -c '[c]rack tar' ~/setup.log` -eq 0
       - type: phpunit
         mode: parallel

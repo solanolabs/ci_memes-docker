@@ -104,6 +104,7 @@ INSERT INTO `images` VALUES ('img/memes/surf_board_beer.gif','<div><image src=\"
 INSERT INTO `images` VALUES ('img/memes/unit_test_walrus.jpg','');
 INSERT INTO `images` VALUES ('img/memes/yoda_broken_build.jpg','');
 INSERT INTO `images` VALUES ('img/memes/office-happy.gif','<div><image src=\"__IMAGE__\" /></div><h1>The feeling using Solano CI gives you!</h1>');
+INSERT INTO `images` VALUES ('img/memes/dog-slapping-man.gif', '<div><image src="__IMAGE__" style="height: 366px; width: 640px;" /></div><h1>Don\'t even suggest using Jenkins!<br />Use Solano CI!!!</h1>');
 /*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
